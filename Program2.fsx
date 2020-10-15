@@ -431,7 +431,7 @@ module tplgy=
                 if i=0 then
                     nbrArray<-Array.append nodeArray.[i+1..i+1] nodeArray.[i+rCount..i+rCount]
                     let elemremove = Array.concat [[|i|]; [|i+1|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -442,7 +442,7 @@ module tplgy=
                 elif i=rCount-1 then 
                     nbrArray<-Array.append nodeArray.[i-1..i-1] nodeArray.[i+rCount..i+rCount]
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -453,7 +453,7 @@ module tplgy=
                 elif i=numNM-rCount then 
                     nbrArray<-Array.append nodeArray.[i+1..i+1] nodeArray.[i-rCount..i-rCount]
                     let elemremove = Array.concat [[|i|]; [|i+1|]; [|i-rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -464,7 +464,7 @@ module tplgy=
                 elif i=numNM-1 then 
                     nbrArray<-Array.append nodeArray.[i-1..i-1] nodeArray.[i-rCount..i-rCount]
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i-rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -476,7 +476,7 @@ module tplgy=
                     nbrArray<-Array.append nodeArray.[i-1..i-1] nodeArray.[i+1..i+1] 
                     nbrArray<-Array.append nbrArray nodeArray.[i+rCount..i+rCount] 
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i+1|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -489,7 +489,7 @@ module tplgy=
                     nbrArray<-Array.append nodeArray.[i-1..i-1] nodeArray.[i+1..i+1] 
                     nbrArray<-Array.append nbrArray nodeArray.[i-rCount..i-rCount]
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i+1|]; [|i-rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -501,7 +501,7 @@ module tplgy=
                     nbrArray<-Array.append nodeArray.[i+1..i+1] nodeArray.[i-rCount..i-rCount] 
                     nbrArray<-Array.append nbrArray nodeArray.[i+rCount..i+rCount]
                     let elemremove = Array.concat [[|i|]; [|i+1|]; [|i-rCount|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -513,7 +513,7 @@ module tplgy=
                     nbrArray<-Array.append nodeArray.[i-1..i-1] nodeArray.[i-rCount..i-rCount] 
                     nbrArray<-Array.append nbrArray nodeArray.[i+rCount..i+rCount]
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i-rCount|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
                         selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
@@ -526,9 +526,9 @@ module tplgy=
                     nbrArray<-Array.append nbrArray nodeArray.[i-rCount..i-rCount] 
                     nbrArray<-Array.append nbrArray nodeArray.[i+rCount..i+rCount]
                     let elemremove = Array.concat [[|i|]; [|i-1|]; [|i+1|]; [|i-rCount|]; [|i+rCount|]]
-                    let mutable selectrand = [|0..8|]
+                    let mutable selectrand = [|0..numNM-1|]
                     for i in 0..elemremove.Length-1 do
-                        selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand
+                        selectrand<-Array.filter (fun x -> x <> elemremove.[i])selectrand    
                     let randnbr=selectrand.[r.Next(selectrand.Length)]
                     nbrArray<-Array.append nbrArray nodeArray.[randnbr..randnbr] 
                     printfn "i is:%A a2 is: %A"i nbrArray
