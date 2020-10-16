@@ -42,6 +42,7 @@ let Listener (mailbox:Actor<_>) =
             let! message = mailbox.Receive()
             match message with 
 
+//Checking for Gossip convergence
             | ConvMsgGossip message ->
                 let endTime = System.DateTime.Now.TimeOfDay.Milliseconds
                 noOfMsg <- noOfMsg + 1
@@ -57,6 +58,8 @@ let Listener (mailbox:Actor<_>) =
                     let newStart= r.Next(0,allNds.Length)
                     allNds.[newStart] <! BeginGossip("Hello")
 
+
+//Checking for Push Sum convergence
             | ConvPushSum (s,w) ->
                 let endTime = System.DateTime.Now.TimeOfDay.Milliseconds
                 noOfNde <- noOfNde + 1
@@ -84,7 +87,7 @@ let Listener (mailbox:Actor<_>) =
     loop()
 
     
-
+//Defining Actor(Node)
 let Node listener nodeNum (mailbox:Actor<_>)  =
 
     let mutable numMsgHeard = 0 
@@ -107,11 +110,13 @@ let Node listener nodeNum (mailbox:Actor<_>)  =
         let! message = mailbox.Receive()
         match message with 
 
+//Starting Push Sum with random node
         |BeginPushSum ind->
             let index = r.Next(0,nbrs.Length)
             let sn = index |> float
             nbrs.[index] <! PushSum(sn,1.0)
 
+//Push Sum Algorithm
         |PushSum (s,w)->
             if(convflag = 1) then
                 let index = r.Next(0,nbrs.Length)
@@ -154,7 +159,7 @@ let Node listener nodeNum (mailbox:Actor<_>)  =
         | SetNbrs nArray->
                 nbrs<-nArray
 
-
+//Gossip Algorithm
         | BeginGossip msg ->
 
                 numMsgHeard<- numMsgHeard+1
@@ -173,6 +178,7 @@ let Node listener nodeNum (mailbox:Actor<_>)  =
 
 module prtcl=
 
+//Calling the Algorithm
         let callPrtcl algo numN nodeArr=
             (nodeArr : _ array)|>ignore
 
@@ -190,7 +196,8 @@ module prtcl=
             
 
 module tplgy=
-               
+ 
+ //Building Full Topology
         let buildFull numN algo=
             let listener= 
                 Listener
@@ -223,7 +230,7 @@ module tplgy=
 
             prtcl.callPrtcl algo numN nodeArray
 
-
+//Building 2D Grid Topology
         let build2D numN algo=
             let listener= 
                 Listener
@@ -291,7 +298,7 @@ module tplgy=
 
             prtcl.callPrtcl algo numN nodeArray
 
-
+//Building Line Topology
         let buildLine numN algo=
 
             let listener= 
@@ -325,7 +332,7 @@ module tplgy=
 
             prtcl.callPrtcl algo numN nodeArray
         
-
+//Building Imperfect 2D Grid Topology
         let buildImp2D numN algo=
 
             let listener= 
@@ -448,7 +455,7 @@ module tplgy=
 
             prtcl.callPrtcl algo numN nodeArray
 
-
+//Topology selection case
         let createTopology top numN algo=
            if top="full" then buildFull numN algo
            elif top="2D" then build2D numN algo
@@ -458,6 +465,7 @@ module tplgy=
              
 module mainModule=
 
+//Input
         let args : string array = fsi.CommandLineArgs |> Array.tail
         let mutable numNodes=args.[0] |> int
         let topology=args.[1] |> string
